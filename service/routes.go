@@ -26,14 +26,14 @@ var routes = Routes{
 	},
 	Route{
 		"RegisterUser", // Name
-		"POST",     // HTTP method
+		"POST",         // HTTP method
 		"/register",
 		RegisterUser, // Route pattern
 
 	},
 	Route{
 		"AllUsers", // Name
-		"GET",     // HTTP method
+		"GET",      // HTTP method
 		"/getAllUsers",
 		GetAllUsers, // Route pattern
 

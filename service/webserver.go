@@ -1,9 +1,10 @@
 package service
 
 import (
-	"github.com/rs/cors"
 	"log"
 	"net/http"
+
+	"github.com/rs/cors"
 )
 
 func StartWebServer(port string) {

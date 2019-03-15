@@ -4,8 +4,6 @@ import (
 	"UserService/dbclient"
 	"UserService/service"
 	"fmt"
-
-
 )
 
 var appName = "User Service"
@@ -20,5 +18,3 @@ func initDBClient() {
 	service.DBClient = dbclient.MongoClient{}
 	service.DBClient.Connect()
 }
-
-

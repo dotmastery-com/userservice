@@ -12,13 +12,11 @@ import (
 
 var DBClient dbclient.MongoClient
 
-
 func errorWithJSON(w http.ResponseWriter, message string, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(code)
 	fmt.Fprintf(w, "{message: %q}", message)
 }
-
 
 /*
    Authenticates a user by checking whether a corresponding entry exists in the database
@@ -26,7 +24,7 @@ func errorWithJSON(w http.ResponseWriter, message string, code int) {
    Returns HTTP 200 if a user with the given username and password exists
    Returns HTTP 401 if no such user exists
    Returns
- */
+*/
 func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 	var user model.User
@@ -44,7 +42,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 		log.Println("Failed to retrieve uer: ", err)
 		return
 	}
-	
+
 	if !found {
 		errorWithJSON(w, "Invalid username or password", http.StatusUnauthorized)
 		log.Println("Failed get all messages: ", err)
@@ -57,8 +55,8 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 /*
    Registers a new user in the database if the username doesn't already exist
- */
-func RegisterUser(w http.ResponseWriter, r *http.Request)  {
+*/
+func RegisterUser(w http.ResponseWriter, r *http.Request) {
 
 	var user model.User
 	decoder := json.NewDecoder(r.Body)
@@ -82,7 +80,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request)  {
 	}
 
 	if !found {
-		err = DBClient.SaveUser(user);
+		err = DBClient.SaveUser(user)
 		if err != nil {
 			errorWithJSON(w, "Database error", http.StatusInternalServerError)
 			log.Println("Unable to add user to the database ", err)
