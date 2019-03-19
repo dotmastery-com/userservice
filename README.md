@@ -20,7 +20,7 @@ Start a mongo daemon by running _mongod_ in a terminal
 ## Running the code
 
 1. Clone the project and make sure its part of the $GOPATH
-2. From the command line run go run main.go
+2. From the command line run *go run main.go*
 
 You should see a confirmation message that the service is up and running
 
