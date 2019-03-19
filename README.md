@@ -14,6 +14,9 @@ This is useful for debugging but should be disabled in a production system
 
 1. Install Golang as per the install instructions here: https://golang.org/doc/install
 
+2. Install mongo as per https://docs.mongodb.com/manual/administration/install-community/
+Start a mongo daemon by running _mongod_ in a terminal
+
 ## Running the code
 
 1. Clone the project and make sure its part of the $GOPATH
