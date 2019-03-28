@@ -29,6 +29,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
 FROM alpine:latest
 
+EXPOSE 7000
+
 # Security related package, good to have.
 RUN apk --no-cache add ca-certificates
 
@@ -41,6 +43,7 @@ WORKDIR /app
 # this build context. This reaches into our previous image, finds
 # the binary we built, and pulls it into this container. Amazing!
 COPY --from=builder /go/src/UserService .
+
 
 
 CMD ["./UserService"]
