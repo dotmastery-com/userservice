@@ -2,7 +2,6 @@ package dbclient
 
 import (
 	"UserService/model"
-	"time"
 
 	"github.com/rs/xid"
 	"gopkg.in/mgo.v2"
@@ -14,7 +13,8 @@ const (
 	AuthDatabase = "sampledb"
 	AuthUserName = "user3G3"
 	AuthPassword = "skxIfr8Ocn2QxU07"
-	TestDatabase = "sampledb"
+	//TestDatabase = "sampledb"
+	TestDatabase = "store"
 )
 
 type MongoClient struct {
@@ -27,15 +27,17 @@ func (mc *MongoClient) Connect() {
 	var err error
 
 	// We need this object to establish a session to our MongoDB.
-	mongoDBDialInfo := &mgo.DialInfo{
-		Addrs:    []string{MongoDBHosts},
-		Timeout:  60 * time.Second,
-		Database: AuthDatabase,
-		Username: AuthUserName,
-		Password: AuthPassword,
-	}
+	//	mongoDBDialInfo := &mgo.DialInfo{
+	//		Addrs:    []string{MongoDBHosts},
+	//		Timeout:  60 * time.Second,
+	//		Database: AuthDatabase,
+	//		Username: AuthUserName,
+	//		Password: AuthPassword,
+	//	}
 
-	mc.session, err = mgo.DialWithInfo(mongoDBDialInfo)
+	//mc.session, err = mgo.DialWithInfo(mongoDBDialInfo)
+
+	mc.session, err = mgo.Dial("localhost")
 
 	if err != nil {
 		panic(err)
