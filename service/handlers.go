@@ -10,7 +10,11 @@ import (
 	"strconv"
 )
 
-var DBClient dbclient.MongoClient
+type Env struct {
+	DB dbclient.Datastore
+}
+
+var MyEnv = Env{}
 
 func errorWithJSON(w http.ResponseWriter, message string, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -23,7 +27,7 @@ func errorWithJSON(w http.ResponseWriter, message string, code int) {
 
    Returns HTTP 200 if a user with the given username and password exists
    Returns HTTP 401 if no such user exists
-   Returns
+   Returns HTTP 500 if internal error
 */
 func AuthUser(w http.ResponseWriter, r *http.Request) {
 
@@ -31,12 +35,14 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 
 	err := decoder.Decode(&user)
+	fmt.Println(user)
+
 	if err != nil {
 		errorWithJSON(w, "Invalid body", http.StatusBadRequest)
 		return
 	}
 
-	found, err := DBClient.AuthenticateUser(user)
+	found, err := MyEnv.DB.AuthenticateUser(user)
 	if err != nil {
 		errorWithJSON(w, "Database error", http.StatusInternalServerError)
 		log.Println("Failed to retrieve uer: ", err)
@@ -51,6 +57,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+	return
 }
 
 /*
@@ -67,7 +74,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	found, err := DBClient.UserExists(user)
+	found, err := MyEnv.DB.UserExists(user)
 	if err != nil {
 		errorWithJSON(w, "Database error", http.StatusInternalServerError)
 		log.Println("Failed to look up user: ", err)
@@ -80,7 +87,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !found {
-		err = DBClient.SaveUser(user)
+		err = MyEnv.DB.SaveUser(user)
 		if err != nil {
 			errorWithJSON(w, "Database error", http.StatusInternalServerError)
 			log.Println("Unable to add user to the database ", err)
@@ -90,25 +97,41 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+	return
 
 }
 
+/*
+	Returns a JSON array of all users, or a 500 error if unable to connect to the database
+*/
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 
-	users, err := DBClient.GetAllUsers()
+	users, err := MyEnv.DB.GetAllUsers()
 
-	// If err, return a 404
+	// If err, return a 503, service unavailable with error message
 	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
+		errorWithJSON(w, "Database error", http.StatusInternalServerError)
 		return
 	}
 
 	// If found, marshal into JSON, write headers and content
 	data, _ := json.Marshal(users)
-	fmt.Println(data)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
 	w.WriteHeader(http.StatusOK)
+	w.Write(data)
+	return
+}
+
+// e.g. http.HandleFunc("/health-check", HealthCheckHandler)
+func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	// A very simple health check.
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+
+	// In the future we could report back on the status of our DB, or our cache and include them in the response.
+	response := `{alive: true}`
+	data, _ := json.Marshal(response)
 	w.Write(data)
 }

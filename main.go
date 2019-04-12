@@ -15,6 +15,7 @@ func main() {
 }
 
 func initDBClient() {
-	service.DBClient = dbclient.MongoClient{}
-	service.DBClient.Connect()
+	db := dbclient.MongoClient{}
+	service.MyEnv = service.Env{&db}
+	service.MyEnv.DB.Connect()
 }

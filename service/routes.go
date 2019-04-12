@@ -38,4 +38,11 @@ var routes = Routes{
 		GetAllUsers, // Route pattern
 
 	},
+	Route{
+		"HealthCheck", // Name
+		"GET",         // HTTP method
+		"/health-check",
+		HealthCheckHandler, // Route pattern
+
+	},
 }
