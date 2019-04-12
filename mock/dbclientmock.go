@@ -30,12 +30,13 @@ func (m *DBClientMock) Connect() {
 
 }
 
+// Our mocked AuthenticateUser method
 func (m *DBClientMock) AuthenticateUser(user model.User) (bool, error) {
 
 	//-- grab the parameters
 	args := m.Called()
 
-	//-- draw out the user slice to return
+	//-- draw out the result to return
 	results := args.Bool(0)
 
 	//-- and any errors
@@ -47,10 +48,27 @@ func (m *DBClientMock) AuthenticateUser(user model.User) (bool, error) {
 }
 
 func (m *DBClientMock) UserExists(user model.User) (bool, error) {
-	return true, nil
+	//-- grab the parameters
+	args := m.Called()
+
+	//-- draw out the result to return
+	results := args.Bool(0)
+
+	//-- and any errors
+	err := args.Error(1)
+
+	//-- return
+	return results, err
 
 }
 
 func (m *DBClientMock) SaveUser(user model.User) error {
-	return nil
+	//-- grab the parameters
+	args := m.Called()
+
+	//-- and any errors
+	err := args.Error(0)
+
+	//-- return
+	return err
 }

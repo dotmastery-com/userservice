@@ -35,7 +35,6 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 
 	err := decoder.Decode(&user)
-	fmt.Println(user)
 
 	if err != nil {
 		errorWithJSON(w, "Invalid body", http.StatusBadRequest)
@@ -45,13 +44,13 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 	found, err := MyEnv.DB.AuthenticateUser(user)
 	if err != nil {
 		errorWithJSON(w, "Database error", http.StatusInternalServerError)
-		log.Println("Failed to retrieve uer: ", err)
+		log.Println("Failed to retrieve user: ", err)
 		return
 	}
 
 	if !found {
 		errorWithJSON(w, "Invalid username or password", http.StatusUnauthorized)
-		log.Println("Failed get all messages: ", err)
+		log.Println("Failed to auth users: ", err)
 		return
 	}
 
@@ -62,6 +61,10 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 /*
    Registers a new user in the database if the username doesn't already exist
+
+   Returns 200 if successful
+   Returns 500 if database unavailbale
+   Returns 403 if user already exists
 */
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
 
