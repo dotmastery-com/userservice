@@ -3,9 +3,6 @@ node {
     // Install the desired Go version
     echo "Installing go"
     def root = tool name: '1.12.1', type: 'go'
-    echo "done"
-    
-    sh 'pwd'
     
     try{
        
@@ -22,13 +19,15 @@ node {
                 stage('Pre Test'){
                     echo 'Pulling Dependencies'
             
-                    sh 'go version'
-                    sh 'go get github.com/rs/cors'
-                    sh 'go get github.com/gorilla/mux'
-                    sh 'go get github.com/rs/xid'
-                    sh 'go get gopkg.in/mgo.v2'
-                    sh 'go get gopkg.in/mgo.v2/bson'
+//                    sh 'go version'
+ //                   sh 'go get github.com/rs/cors'
+ //                   sh 'go get github.com/gorilla/mux'
+ //                   sh 'go get github.com/rs/xid'
+ //                   sh 'go get gopkg.in/mgo.v2'
+ //                   sh 'go get gopkg.in/mgo.v2/bson'
                 
+                    sh 'go get -u github.com/golang/dep/cmd/dep'
+                    sh 'dep init && dep ensure'
 
                 }
         
@@ -36,33 +35,39 @@ node {
                     
                     //List all our project files with 'go list ./... | grep -v /vendor/ | grep -v github.com | grep -v golang.org'
                     //Push our project files relative to ./src
-                   // sh 'cd $GOPATH && go list ./... | grep -v /vendor/ | grep -v github.com | grep -v golang.org > projectPaths'
+                    sh 'cd $GOPATH && go list ./... | grep -v /vendor/ | grep -v github.com | grep -v golang.org > projectPaths'
                     
                     //Print them with 'awk '$0="./src/"$0' projectPaths' in order to get full relative path to $GOPATH
-                   // def paths = sh returnStdout: true, script: """awk '\$0="./src/"\$0' projectPaths"""
+                    def paths = sh returnStdout: true, script: """awk '\$0="./src/"\$0' projectPaths"""
                     
-                  //  echo 'Vetting'
+                    echo 'Vetting'
 
-//                    sh """cd $GOPATH && go tool vet ${paths}"""
+                    sh """cd $GOPATH && go tool vet ${paths}"""
 
-                  //  echo 'Linting'
-  //                  sh """cd $GOPATH && golint ${paths}"""
+                    echo 'Linting'
+                    sh """cd $GOPATH && golint ${paths}"""
                     
-               //     echo 'Testing'
-    //                sh """cd $GOPATH && go test -race -cover ${paths}"""
+                   echo 'Testing'
+                    sh """cd $GOPATH && go test -race -cover ${paths}"""
                 }
             
-                stage('Build'){
-                    echo 'Building Executable'
-                    
-                    sh 'pwd'
-                    sh 'tree'
-                
-                    //Produced binary is $GOPATH/src/cmd/project/project
-                    sh """go build -ldflags '-s'"""
+                stage('Build and Push Docker Image') {
+                    agent any  
+
+                    environment {
+                        registry = "dotmastery/userservice"
+                    }
+
+                    steps {
+                        script {
+                            docker.withRegistry('https://registry-1.docker.io/v2/', 'Dockerhub') {
+                                dockerImage = docker.build registry
+                                dockerImage.push()
+                            }
+                        }    
+
+                    }
                 }
-                
-                
                 
             }
         }
