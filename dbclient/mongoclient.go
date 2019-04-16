@@ -2,6 +2,8 @@ package dbclient
 
 import (
 	"UserService/model"
+	"os"
+	"time"
 
 	"github.com/rs/xid"
 	"gopkg.in/mgo.v2"
@@ -9,43 +11,33 @@ import (
 )
 
 const (
-	MongoDBHosts = "mongodb"
-	AuthDatabase = "sampledb"
-	AuthUserName = "user3G3"
-	AuthPassword = "skxIfr8Ocn2QxU07"
-	//TestDatabase = "sampledb"
 	TestDatabase = "store"
 )
 
-type Datastore interface {
-	Connect()
-	AuthenticateUser(user model.User) (bool, error)
-	UserExists(user model.User) (bool, error)
-	SaveUser(user model.User) error
-	GetAllUsers() ([]model.User, error)
-}
-
 type MongoClient struct {
-	session *mgo.Session
+	Session *mgo.Session
 }
 
 // Connect to the Mongo database
 func (mc *MongoClient) Connect() {
 
+	MongoDBHosts := os.Getenv("MONGO_HOST") //"mongodb"
+	AuthDatabase := os.Getenv("MONGO_DB")   //"sampledb"
+	AuthUserName := os.Getenv("MONGO_USER") //"user3G3"
+	AuthPassword := os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
+
 	var err error
 
 	// We need this object to establish a session to our MongoDB.
-	//	mongoDBDialInfo := &mgo.DialInfo{
-	//		Addrs:    []string{MongoDBHosts},
-	//		Timeout:  60 * time.Second,
-	//		Database: AuthDatabase,
-	//		Username: AuthUserName,
-	//		Password: AuthPassword,
-	//	}
+	mongoDBDialInfo := &mgo.DialInfo{
+		Addrs:    []string{MongoDBHosts},
+		Timeout:  60 * time.Second,
+		Database: AuthDatabase,
+		Username: AuthUserName,
+		Password: AuthPassword,
+	}
 
-	//mc.session, err = mgo.DialWithInfo(mongoDBDialInfo)
-
-	mc.session, err = mgo.Dial("localhost")
+	mc.Session, err = mgo.DialWithInfo(mongoDBDialInfo)
 
 	if err != nil {
 		panic(err)
@@ -53,12 +45,12 @@ func (mc *MongoClient) Connect() {
 
 	mc.ensureIndex()
 
-	mc.session.SetMode(mgo.Monotonic, true)
+	mc.Session.SetMode(mgo.Monotonic, true)
 
 }
 
 func (mc *MongoClient) ensureIndex() {
-	session := mc.session.Copy()
+	session := mc.Session.Copy()
 	defer session.Close()
 
 	c := session.DB(TestDatabase).C("users")
@@ -78,7 +70,7 @@ func (mc *MongoClient) ensureIndex() {
 
 func (mc *MongoClient) AuthenticateUser(user model.User) (bool, error) {
 
-	session := mc.session.Copy()
+	session := mc.Session.Copy()
 	defer session.Close()
 
 	c := session.DB(TestDatabase).C("users")
@@ -94,7 +86,7 @@ func (mc *MongoClient) AuthenticateUser(user model.User) (bool, error) {
 
 func (mc *MongoClient) UserExists(user model.User) (bool, error) {
 
-	session := mc.session.Copy()
+	session := mc.Session.Copy()
 	defer session.Close()
 
 	c := session.DB(TestDatabase).C("users")
@@ -110,7 +102,7 @@ func (mc *MongoClient) UserExists(user model.User) (bool, error) {
 
 func (mc *MongoClient) SaveUser(user model.User) error {
 
-	session := mc.session.Copy()
+	session := mc.Session.Copy()
 	defer session.Close()
 
 	user.Id = xid.New().String()
@@ -123,7 +115,8 @@ func (mc *MongoClient) SaveUser(user model.User) error {
 
 func (mc *MongoClient) GetAllUsers() ([]model.User, error) {
 
-	session := mc.session.Copy()
+	session := mc.Session.Copy()
+	defer session.Close()
 
 	c := session.DB(TestDatabase).C("users")
 
