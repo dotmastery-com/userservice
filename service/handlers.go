@@ -127,7 +127,9 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// e.g. http.HandleFunc("/health-check", HealthCheckHandler)
+/*
+   Returns a simple 200 and alive:true message to indicate that the service is running
+*/
 func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	// A very simple health check.
 	w.WriteHeader(http.StatusOK)
