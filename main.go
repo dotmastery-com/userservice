@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-var appName = "User Service"
+var appName = "User Services"
 
 func main() {
 	fmt.Printf("Starting %v\n", appName)
