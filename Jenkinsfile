@@ -14,8 +14,6 @@ pipeline {
 
           steps {
             script {
-
-                def root = tool name: 'docker', type: 'docker'
                 
                 docker.withRegistry('https://registry-1.docker.io/v2/', 'Dockerhub') {
                     dockerImage = docker.build registry
