@@ -26,8 +26,8 @@ node {
  //                   sh 'go get gopkg.in/mgo.v2'
  //                   sh 'go get gopkg.in/mgo.v2/bson'
                 
-                    sh 'go get -u github.com/golang/dep/cmd/dep'
-                    sh 'dep init && dep ensure'
+                 //   sh 'go get -u github.com/golang/dep/cmd/dep'
+                 //   sh 'dep init && dep ensure'
 
                 }
         
@@ -52,12 +52,16 @@ node {
                 }
             
                 stage('Build and Push Docker Image') {
+
+                    echo 'step 1'
+
                     agent any  
 
                     environment {
                         registry = "dotmastery/userservice"
                     }
 
+echo 'step 2'
                     steps {
                         script {
                             docker.withRegistry('https://registry-1.docker.io/v2/', 'Dockerhub') {
