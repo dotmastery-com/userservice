@@ -15,10 +15,10 @@ pipeline {
           steps {
             script {
                 
-              //  docker.withRegistry('https://registry-1.docker.io/v2/', 'Dockerhub') {
-              //      dockerImage = docker.build registry
-               //     dockerImage.push()
-               // }
+                docker.withRegistry('https://registry-1.docker.io/v2/', 'Dockerhub') {
+                    dockerImage = docker.build registry
+                    dockerImage.push()
+                }
 
                 sh 'whoami'
                 sh 'cd /app/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit'    
