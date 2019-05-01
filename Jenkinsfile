@@ -19,7 +19,12 @@ pipeline {
                     dockerImage = docker.build registry
                     dockerImage.push()
                 }
-            }    
+
+                sh 'cd /home/ec2-user/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit'    
+                sh './oc login https://api.starter-us-east-1.openshift.com --token=U0F4Fy17A5TNfTHviU4NNQYiifLzIfnW9YpovIfDMG8'
+                sh './oc import-image myuserservice:latest --from=dotmastery/userservice --confirm'
+            }   
+
 
          }
         }
