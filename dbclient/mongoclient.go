@@ -43,7 +43,7 @@ func (mc *MongoClient) Connect() {
 		panic(err)
 	}
 
-	mc.ensureIndex()
+	//	mc.ensureIndex()
 
 	mc.Session.SetMode(mgo.Monotonic, true)
 
