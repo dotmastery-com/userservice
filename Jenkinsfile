@@ -26,9 +26,9 @@ pipeline {
             agent any 
 
              steps {
-                 script {
-                    sh '/app/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc login https://api.starter-us-east-1.openshift.com --token=U0F4Fy17A5TNfTHviU4NNQYiifLzIfnW9YpovIfDMG8'
-                    sh '/app/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc import-image myuserservice:latest --from=dotmastery/userservice --confirm'
+                 script {   
+                    sh '/app/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc login https://api.pro-eu-west-1.openshift.com --token=eT-2btD45f6QeFWhgLNMj3GPqgC5rA0SAD7ZbNz5EMU'
+                    sh '/app/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc import-image userservice:latest --from=dotmastery/userservice --confirm'
                 }
              }  
          }
