@@ -23,7 +23,7 @@ func (mc *MongoClient) Connect() {
 	MongoDBHosts := "mongodb-dotmastery" //os.Getenv("MONGO_HOST") //"mongodb"
 	AuthDatabase := "sampledb"           //os.Getenv("MONGO_DB")   //"sampledb"
 	AuthUserName := "user1XA"            //os.Getenv("MONGO_USER") //"user3G3"
-	AuthPassword := "o37YvW8khKpqW4N"    //os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
+	AuthPassword := "eo37YvW8khKpqW4N"   //os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
 
 	var err error
 
