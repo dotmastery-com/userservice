@@ -2,7 +2,6 @@ package dbclient
 
 import (
 	"UserService/model"
-	"os"
 	"time"
 
 	"github.com/rs/xid"
@@ -21,10 +20,10 @@ type MongoClient struct {
 // Connect to the Mongo database
 func (mc *MongoClient) Connect() {
 
-	MongoDBHosts := os.Getenv("MONGO_HOST") //"mongodb"
-	AuthDatabase := os.Getenv("MONGO_DB")   //"sampledb"
-	AuthUserName := os.Getenv("MONGO_USER") //"user3G3"
-	AuthPassword := os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
+	MongoDBHosts := "mongodb-dotmastery" //os.Getenv("MONGO_HOST") //"mongodb"
+	AuthDatabase := "sampledb"           //os.Getenv("MONGO_DB")   //"sampledb"
+	AuthUserName := "user1XA"            //os.Getenv("MONGO_USER") //"user3G3"
+	AuthPassword := "o37YvW8khKpqW4N"    //os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
 
 	var err error
 
