@@ -10,7 +10,11 @@ import (
 )
 
 const (
-	TestDatabase = "store"
+	MongoDBHosts = "mongodb-dotmastery"
+	AuthDatabase = "sampledb"
+	AuthUserName = "user1XA"
+	AuthPassword = "eo37YvW8khKpqW4N"
+	TestDatabase = "sampledb"
 )
 
 type MongoClient struct {
@@ -20,10 +24,12 @@ type MongoClient struct {
 // Connect to the Mongo database
 func (mc *MongoClient) Connect() {
 
-	MongoDBHosts := "mongodb-dotmastery" //os.Getenv("MONGO_HOST") //"mongodb"
-	AuthDatabase := "sampledb"           //os.Getenv("MONGO_DB")   //"sampledb"
-	AuthUserName := "user1XA"            //os.Getenv("MONGO_USER") //"user3G3"
-	AuthPassword := "eo37YvW8khKpqW4N"   //os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
+	//MongoDBHosts := "mongodb-dotmastery" //os.Getenv("MONGO_HOST") //"mongodb"
+	//AuthDatabase := "sampledb"           //os.Getenv("MONGO_DB")   //"sampledb"
+	//AuthUserName := "user1XA"            //os.Getenv("MONGO_USER") //"user3G3"
+	//AuthPassword := "eo37YvW8khKpqW4N"   //os.Getenv("MONGO_PASS") //"skxIfr8Ocn2QxU07"
+
+	//F4sEICMg0sCVCTi5
 
 	var err error
 
