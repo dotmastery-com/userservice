@@ -1,0 +1,101 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-05-11T18:26:03Z'
+  generation: 5
+  labels:
+    app: messageservice
+  name: messageservice
+  namespace: dotmastery
+  resourceVersion: '366946897'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/dotmastery/deploymentconfigs/messageservice
+  uid: 3ba987c0-741a-11e9-91c0-0645a759894e
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: messageservice
+    deploymentconfig: messageservice
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: messageservice
+        deploymentconfig: messageservice
+    spec:
+      containers:
+        - image: >-
+            dotmastery/messageservice@sha256:7b92822ddd0272a775f2888fb52ea4e8ba9f46b2d1f09a661c8e37e2318f9969
+          imagePullPolicy: Always
+          name: messageservice
+          ports:
+            - containerPort: 12345
+              protocol: TCP
+          resources:
+            limits:
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - messageservice
+        from:
+          kind: ImageStreamTag
+          name: 'messageservice:latest'
+          namespace: dotmastery
+        lastTriggeredImage: >-
+          dotmastery/messageservice@sha256:7b92822ddd0272a775f2888fb52ea4e8ba9f46b2d1f09a661c8e37e2318f9969
+      type: ImageChange
+    - type: ConfigChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2019-05-19T20:00:35Z'
+      lastUpdateTime: '2019-05-19T20:00:35Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2019-05-19T20:00:29Z'
+      lastUpdateTime: '2019-05-19T20:00:36Z'
+      message: replication controller "messageservice-3" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - imageTrigger:
+          from:
+            kind: DockerImage
+            name: >-
+              dotmastery/messageservice@sha256:7b92822ddd0272a775f2888fb52ea4e8ba9f46b2d1f09a661c8e37e2318f9969
+        type: ImageChange
+    message: image change
+  latestVersion: 3
+  observedGeneration: 5
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

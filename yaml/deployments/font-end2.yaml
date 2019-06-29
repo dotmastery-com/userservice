@@ -1,0 +1,107 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-05-24T19:25:20Z'
+  generation: 10
+  labels:
+    app: front-end2
+  name: front-end2
+  namespace: dotmastery
+  resourceVersion: '373346178'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/dotmastery/deploymentconfigs/front-end2
+  uid: ab4ed087-7e59-11e9-a65f-0645a759894e
+spec:
+  replicas: 1
+  selector:
+    app: front-end2
+    deploymentconfig: front-end2
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: front-end2
+        deploymentconfig: front-end2
+    spec:
+      containers:
+        - env:
+            - name: DATA_ENDPOINT
+              value: >-
+                http://userservice-dotmastery.e4ff.pro-eu-west-1.openshiftapps.com
+            - name: SOCKET_ENDPOINT
+              value: >-
+                ws://messageservice2-dotmastery.e4ff.pro-eu-west-1.openshiftapps.com/ws
+          image: >-
+            dotmastery/front-end@sha256:9750479411ac6ac6f47235c7aaa33ca22375a5b2448c3bc682cffef7523e235b
+          imagePullPolicy: Always
+          name: front-end2
+          ports:
+            - containerPort: 80
+              protocol: TCP
+            - containerPort: 8081
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - front-end2
+        from:
+          kind: ImageStreamTag
+          name: 'front-end:latest'
+          namespace: dotmastery
+        lastTriggeredImage: >-
+          dotmastery/front-end@sha256:9750479411ac6ac6f47235c7aaa33ca22375a5b2448c3bc682cffef7523e235b
+      type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2019-05-24T19:25:33Z'
+      lastUpdateTime: '2019-05-24T19:25:33Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2019-05-28T20:55:38Z'
+      lastUpdateTime: '2019-05-28T20:55:41Z'
+      message: replication controller "front-end2-9" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - imageTrigger:
+          from:
+            kind: DockerImage
+            name: >-
+              dotmastery/front-end@sha256:9750479411ac6ac6f47235c7aaa33ca22375a5b2448c3bc682cffef7523e235b
+        type: ImageChange
+    message: image change
+  latestVersion: 9
+  observedGeneration: 10
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

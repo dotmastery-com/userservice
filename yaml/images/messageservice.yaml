@@ -1,0 +1,47 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/image.dockerRepositoryCheck: '2019-05-19T20:00:25Z'
+  creationTimestamp: '2019-05-11T18:23:36Z'
+  generation: 3
+  labels:
+    app: messageservice
+  name: messageservice
+  namespace: dotmastery
+  resourceVersion: '366946767'
+  selfLink: >-
+    /apis/image.openshift.io/v1/namespaces/dotmastery/imagestreams/messageservice
+  uid: e4248df1-7419-11e9-bbf4-0601fd422288
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: dotmastery/messageservice
+      from:
+        kind: DockerImage
+        name: dotmastery/messageservice
+      generation: 3
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: 'docker-registry.default.svc:5000/dotmastery/messageservice'
+  tags:
+    - items:
+        - created: '2019-05-19T20:00:25Z'
+          dockerImageReference: >-
+            dotmastery/messageservice@sha256:7b92822ddd0272a775f2888fb52ea4e8ba9f46b2d1f09a661c8e37e2318f9969
+          generation: 3
+          image: >-
+            sha256:7b92822ddd0272a775f2888fb52ea4e8ba9f46b2d1f09a661c8e37e2318f9969
+        - created: '2019-05-11T18:23:37Z'
+          dockerImageReference: >-
+            dotmastery/messageservice@sha256:d7dcdaceab8f4731bd63de06150f467a852dba476c8c238879beb394fdd3ab64
+          generation: 2
+          image: >-
+            sha256:d7dcdaceab8f4731bd63de06150f467a852dba476c8c238879beb394fdd3ab64
+      tag: latest

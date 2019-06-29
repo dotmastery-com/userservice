@@ -1,0 +1,110 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-05-11T18:29:57Z'
+  generation: 13
+  labels:
+    app: userservice
+  name: userservice
+  namespace: dotmastery
+  resourceVersion: '371881458'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/dotmastery/deploymentconfigs/userservice
+  uid: c7743680-741a-11e9-bbf4-0601fd422288
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: userservice
+    deploymentconfig: userservice
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: userservice
+        deploymentconfig: userservice
+    spec:
+      containers:
+        - env:
+            - name: MONGO_HOST
+              value: mongodb-dotmastery
+            - name: MONGO_DB
+              value: sampledb
+            - name: MONGO_USER
+              value: user1XA
+            - name: MONGO_PASS
+              value: eo37YvW8khKpqW4N
+          image: >-
+            dotmastery/userservice@sha256:dfcd5ebadc4cf7807f69b201fa4aa7f7bbb4fba20b10ed34d5dc4ba63a88c161
+          imagePullPolicy: Always
+          name: userservice
+          ports:
+            - containerPort: 7000
+              protocol: TCP
+          resources:
+            limits:
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - userservice
+        from:
+          kind: ImageStreamTag
+          name: 'userservice:latest'
+          namespace: dotmastery
+        lastTriggeredImage: >-
+          dotmastery/userservice@sha256:dfcd5ebadc4cf7807f69b201fa4aa7f7bbb4fba20b10ed34d5dc4ba63a88c161
+      type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2019-05-24T19:47:10Z'
+      lastUpdateTime: '2019-05-24T19:47:13Z'
+      message: replication controller "userservice-10" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+    - lastTransitionTime: '2019-05-26T20:09:44Z'
+      lastUpdateTime: '2019-05-26T20:09:44Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+  details:
+    causes:
+      - imageTrigger:
+          from:
+            kind: DockerImage
+            name: >-
+              dotmastery/userservice@sha256:dfcd5ebadc4cf7807f69b201fa4aa7f7bbb4fba20b10ed34d5dc4ba63a88c161
+        type: ImageChange
+    message: image change
+  latestVersion: 10
+  observedGeneration: 13
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

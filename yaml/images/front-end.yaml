@@ -1,0 +1,87 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/image.dockerRepositoryCheck: '2019-05-28T20:55:25Z'
+  creationTimestamp: '2019-05-07T10:02:37Z'
+  generation: 7
+  labels:
+    app: front-end
+  name: front-end
+  namespace: dotmastery
+  resourceVersion: '373346020'
+  selfLink: /apis/image.openshift.io/v1/namespaces/dotmastery/imagestreams/front-end
+  uid: 3e2e300d-70af-11e9-bbf4-0601fd422288
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: 'dotmastery/front-end:latest'
+      generation: 2
+      importPolicy: {}
+      name: '1.1'
+      referencePolicy:
+        type: Source
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: dotmastery/front-end
+      from:
+        kind: DockerImage
+        name: dotmastery/front-end
+      generation: 7
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: 'docker-registry.default.svc:5000/dotmastery/front-end'
+  tags:
+    - items:
+        - created: '2019-05-07T10:02:38Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:1d519bdf8c814e300956131530558d54c3ae68772f42f41f08cf026015778fd9
+          generation: 2
+          image: >-
+            sha256:1d519bdf8c814e300956131530558d54c3ae68772f42f41f08cf026015778fd9
+      tag: '1.1'
+    - items:
+        - created: '2019-05-28T20:55:25Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:9750479411ac6ac6f47235c7aaa33ca22375a5b2448c3bc682cffef7523e235b
+          generation: 7
+          image: >-
+            sha256:9750479411ac6ac6f47235c7aaa33ca22375a5b2448c3bc682cffef7523e235b
+        - created: '2019-05-28T20:46:46Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:25d3b414d82c9a01271270cc8be675e0e746cea955d0d09d948fc6f59404a387
+          generation: 6
+          image: >-
+            sha256:25d3b414d82c9a01271270cc8be675e0e746cea955d0d09d948fc6f59404a387
+        - created: '2019-05-26T20:17:19Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:49f1bbf624c6ccc36344a31f1e71ce43f3266fbbcb3534df8479efc751b28177
+          generation: 5
+          image: >-
+            sha256:49f1bbf624c6ccc36344a31f1e71ce43f3266fbbcb3534df8479efc751b28177
+        - created: '2019-05-23T19:38:14Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:93f56b094c06d2205a3db76918baa3a7d9f5ffc4bbc823dcf92f7f10a1fc957a
+          generation: 4
+          image: >-
+            sha256:93f56b094c06d2205a3db76918baa3a7d9f5ffc4bbc823dcf92f7f10a1fc957a
+        - created: '2019-05-23T18:09:57Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:2c4b7875c0e0a9e8476b4e0126999bbac4c1fe8c9d2d423f8c53e93faeb779f4
+          generation: 3
+          image: >-
+            sha256:2c4b7875c0e0a9e8476b4e0126999bbac4c1fe8c9d2d423f8c53e93faeb779f4
+        - created: '2019-05-07T10:02:38Z'
+          dockerImageReference: >-
+            dotmastery/front-end@sha256:1d519bdf8c814e300956131530558d54c3ae68772f42f41f08cf026015778fd9
+          generation: 2
+          image: >-
+            sha256:1d519bdf8c814e300956131530558d54c3ae68772f42f41f08cf026015778fd9
+      tag: latest

@@ -1,0 +1,70 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/image.dockerRepositoryCheck: '2019-05-24T19:46:52Z'
+  creationTimestamp: '2019-05-11T18:24:31Z'
+  generation: 7
+  labels:
+    app: userservice
+  name: userservice
+  namespace: dotmastery
+  resourceVersion: '370499012'
+  selfLink: /apis/image.openshift.io/v1/namespaces/dotmastery/imagestreams/userservice
+  uid: 054e2fcd-741a-11e9-bbf4-0601fd422288
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: dotmastery/userservice
+      from:
+        kind: DockerImage
+        name: dotmastery/userservice
+      generation: 7
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: 'docker-registry.default.svc:5000/dotmastery/userservice'
+  tags:
+    - items:
+        - created: '2019-05-24T19:46:52Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:dfcd5ebadc4cf7807f69b201fa4aa7f7bbb4fba20b10ed34d5dc4ba63a88c161
+          generation: 7
+          image: >-
+            sha256:dfcd5ebadc4cf7807f69b201fa4aa7f7bbb4fba20b10ed34d5dc4ba63a88c161
+        - created: '2019-05-12T19:47:14Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:35dbd3401fb9eaa987a54320336f57fbc7f29fd8cd3289a3a3cc6773c95dadf5
+          generation: 6
+          image: >-
+            sha256:35dbd3401fb9eaa987a54320336f57fbc7f29fd8cd3289a3a3cc6773c95dadf5
+        - created: '2019-05-12T19:28:57Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:0d28c87efff53ecf8f8a19a2d9f013e44b483644b8789604954a450d84898ffc
+          generation: 5
+          image: >-
+            sha256:0d28c87efff53ecf8f8a19a2d9f013e44b483644b8789604954a450d84898ffc
+        - created: '2019-05-12T19:18:56Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:4820e1cf954b64a4e8ed2d44505a7d46d032b1cfba4afe94db0227b4f9b3284e
+          generation: 4
+          image: >-
+            sha256:4820e1cf954b64a4e8ed2d44505a7d46d032b1cfba4afe94db0227b4f9b3284e
+        - created: '2019-05-11T19:46:28Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:a976852f9995615c93197b19c2f1b7c05b5eb3c11cbff2f7a51d0ca4beeef764
+          generation: 3
+          image: >-
+            sha256:a976852f9995615c93197b19c2f1b7c05b5eb3c11cbff2f7a51d0ca4beeef764
+        - created: '2019-05-11T18:24:32Z'
+          dockerImageReference: >-
+            dotmastery/userservice@sha256:76f3a5037ce4f63004728de4c1bd43446d9da207c27259cbcd091f1753c8d761
+          generation: 2
+          image: >-
+            sha256:76f3a5037ce4f63004728de4c1bd43446d9da207c27259cbcd091f1753c8d761
+      tag: latest
