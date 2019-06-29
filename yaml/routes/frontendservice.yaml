@@ -1,0 +1,32 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: 'true'
+  creationTimestamp: '2019-05-24T19:23:50Z'
+  labels:
+    app: front-end
+  name: frontendservice
+  namespace: dotmastery
+  resourceVersion: '370488044'
+  selfLink: /apis/route.openshift.io/v1/namespaces/dotmastery/routes/frontendservice
+  uid: 75dd7d10-7e59-11e9-ab77-0601fd422288
+spec:
+  host: frontendservice-dotmastery.e4ff.pro-eu-west-1.openshiftapps.com
+  port:
+    targetPort: 80-tcp
+  to:
+    kind: Service
+    name: frontendservice
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: '2019-05-24T19:23:50Z'
+          status: 'True'
+          type: Admitted
+      host: frontendservice-dotmastery.e4ff.pro-eu-west-1.openshiftapps.com
+      routerCanonicalHostname: elb.e4ff.pro-eu-west-1.openshiftapps.com
+      routerName: router
+      wildcardPolicy: None

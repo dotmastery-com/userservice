@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-05-24T19:25:20Z'
+  labels:
+    app: front-end2
+  name: front-end2
+  namespace: dotmastery
+  resourceVersion: '370492285'
+  selfLink: /api/v1/namespaces/dotmastery/services/front-end2
+  uid: ab5027cb-7e59-11e9-ab77-0601fd422288
+spec:
+  clusterIP: 172.30.186.180
+  ports:
+    - name: 80-tcp
+      port: 80
+      protocol: TCP
+      targetPort: 8081
+    - name: 8081-tcp
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    deploymentconfig: front-end2
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
